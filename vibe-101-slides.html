@@ -1,0 +1,1114 @@
+<title>Vibe Coding 101 — Website Build Lab</title>
+<style>
+  :root{
+    --bg: #0d2b52;
+    --bg-2: #091f3d;
+    --line: #eaf2ff;
+    --line-dim: #90aed4;
+    --grid: rgba(234,242,255,0.055);
+    --grid-major: rgba(234,242,255,0.11);
+    --amber: #f2a93c;
+    --amber-deep: #c97f1e;
+    --amber-ink: #241403;
+    --footer-h: 52px;
+
+    --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, "Roboto Mono", monospace;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body{
+    background: var(--bg);
+    color: var(--line);
+    font-family: var(--font-body);
+    overflow: hidden;
+  }
+
+  .deck{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .deck::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+    background-size: 32px 32px, 32px 32px, 160px 160px, 160px 160px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .reg{
+    position: fixed;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    line-height: 1;
+    color: var(--line-dim);
+    opacity: .55;
+    z-index: 3;
+    user-select: none;
+  }
+  .reg.tl{ top: 14px; left: 16px; }
+  .reg.tr{ top: 14px; right: 16px; }
+  .reg.bl{ bottom: calc(var(--footer-h) + 12px); left: 16px; }
+  .reg.br{ bottom: calc(var(--footer-h) + 12px); right: 16px; }
+
+  .progress{
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--amber);
+    width: 0%;
+    z-index: 5;
+    transition: width .3s ease;
+  }
+
+  .slide{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6vh 8vw calc(var(--footer-h) + 4vh);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .35s ease, transform .35s ease;
+    pointer-events: none;
+    z-index: 1;
+    text-align: center;
+  }
+  .slide.active{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 2;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .slide{ transition: none; }
+  }
+
+  .slide-inner{
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+  .slide.align-left .slide-inner{ align-items: flex-start; text-align: left; }
+  .slide-inner.tight{ gap: .8rem; }
+  .slide-inner.tight .editor pre{ padding: .8rem 1rem; line-height: 1.45; }
+  .slide-inner.tight .eyebrow{ margin-top: .2rem; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: clamp(.7rem, 1vw, .85rem);
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  h1.big{
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    font-size: clamp(2.6rem, 6.6vw, 5.4rem);
+    line-height: 1.02;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1.jumbo{
+    font-size: clamp(3.2rem, 9vw, 7.4rem);
+  }
+
+  h2{
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.7rem, 3.6vw, 2.7rem);
+    line-height: 1.08;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .sub{
+    font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+    color: var(--line-dim);
+    font-weight: 400;
+    max-width: 46ch;
+    line-height: 1.5;
+  }
+  .slide.align-left .sub{ max-width: 60ch; }
+
+  .lede{
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    line-height: 1.5;
+    max-width: 52ch;
+    font-weight: 400;
+  }
+  .slide.align-left .lede{ max-width: 68ch; }
+
+  .meta-row{
+    display: flex;
+    gap: 2.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: clamp(.85rem, 1.1vw, 1rem);
+    color: var(--line-dim);
+    letter-spacing: .02em;
+  }
+
+  .quote{
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5.4vw, 4.2rem);
+    line-height: 1.15;
+    white-space: pre-line;
+    text-wrap: balance;
+  }
+  .quote .accent{ color: var(--amber); }
+  .attrib{
+    font-family: var(--font-mono);
+    color: var(--line-dim);
+    letter-spacing: .05em;
+    font-size: clamp(.85rem, 1vw, 1rem);
+  }
+
+  /* three-up columns */
+  .cols3{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+    width: 100%;
+    margin-top: .5rem;
+  }
+  .card{
+    border: 1px solid rgba(234,242,255,.18);
+    background: rgba(234,242,255,.04);
+    border-radius: 4px;
+    padding: 1.6rem 1.3rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+  .card .num{
+    font-family: var(--font-mono);
+    color: var(--amber);
+    font-size: 1rem;
+    letter-spacing: .05em;
+  }
+  .card .card-title{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  }
+  .card .card-body{
+    color: var(--line-dim);
+    font-size: clamp(.92rem, 1.2vw, 1.05rem);
+    line-height: 1.5;
+  }
+
+  /* flow loop diagram */
+  .loop{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .loop .node{
+    border: 1.5px solid var(--amber);
+    color: var(--line);
+    padding: .55rem 1rem;
+    border-radius: 4px;
+    font-size: clamp(.8rem, 1.3vw, 1.05rem);
+    background: rgba(242,169,60,.08);
+    text-transform: uppercase;
+  }
+  .loop .node.done{
+    background: var(--amber);
+    color: var(--amber-ink);
+  }
+  .loop .arrow{ color: var(--line-dim); font-size: 1.2rem; }
+
+  /* station list */
+  .station-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .7rem 2.2rem;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-mono);
+  }
+  .station-list li{
+    list-style: none;
+    display: flex;
+    gap: .8rem;
+    align-items: baseline;
+    font-size: clamp(.95rem, 1.4vw, 1.15rem);
+    padding: .3rem 0;
+    border-bottom: 1px solid rgba(234,242,255,.12);
+  }
+  .station-list .idx{ color: var(--amber); font-weight: 700; }
+
+  /* station stamp */
+  .stamp-row{ display:flex; align-items:center; gap: 1.6rem; }
+  .stamp{
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    color: var(--amber-ink);
+    background: var(--amber);
+    border: 3px solid var(--amber-deep);
+    border-radius: 6px;
+    padding: .3rem 1.1rem;
+    transform: rotate(-3deg);
+    line-height: 1;
+  }
+  .stamp-label{
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--line-dim);
+    font-size: .85rem;
+  }
+
+  .timer-chip{
+    font-family: var(--font-mono);
+    border: 1.5px dashed var(--amber);
+    color: var(--amber);
+    padding: .5rem 1.1rem;
+    border-radius: 999px;
+    font-size: clamp(.9rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    letter-spacing: .03em;
+  }
+
+  /* fake editor block */
+  .editor{
+    width: 100%;
+    max-width: 640px;
+    text-align: left;
+    border: 1px solid rgba(234,242,255,.2);
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(9,31,61,.6);
+  }
+  .editor-tab{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .5rem .9rem;
+    background: rgba(234,242,255,.06);
+    border-bottom: 1px solid rgba(234,242,255,.15);
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    color: var(--line-dim);
+  }
+  .editor-tab .tab-label{ display: flex; align-items: center; gap: .5rem; overflow: hidden; }
+  .editor-tab .dot{ flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+
+  .copy-btn{
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--line-dim);
+    background: transparent;
+    border: 1px solid rgba(234,242,255,.3);
+    border-radius: 4px;
+    padding: .25rem .6rem;
+    cursor: pointer;
+  }
+  .copy-btn:hover{ border-color: var(--amber); color: var(--amber); }
+  .copy-btn:focus-visible{ outline: 2px solid var(--amber); outline-offset: 2px; }
+  .copy-btn.copied{ border-color: var(--amber); color: var(--amber); background: rgba(242,169,60,.12); }
+  .editor.ai-editor .copy-btn{ border-color: rgba(242,169,60,.5); color: var(--amber); }
+  .editor pre{
+    margin: 0;
+    padding: 1.1rem 1.2rem;
+    font-family: var(--font-mono);
+    font-size: clamp(.82rem, 1.15vw, 1rem);
+    line-height: 1.65;
+    color: var(--line);
+    white-space: pre-wrap;
+  }
+  .editor pre .k{ color: var(--amber); }
+  .editor pre .c{ color: var(--line-dim); font-style: italic; }
+
+  .editor.ai-editor{ border-color: var(--amber); }
+  .editor.ai-editor .editor-tab{ background: rgba(242,169,60,.12); color: var(--amber); }
+  .editor.ai-editor .editor-tab .dot{ background: var(--line); }
+
+  .hint{
+    font-family: var(--font-mono);
+    font-size: clamp(.78rem, 1vw, .92rem);
+    color: var(--line-dim);
+    border-left: 2px solid var(--amber);
+    padding-left: .8rem;
+    text-align: left;
+    max-width: 54ch;
+    line-height: 1.5;
+  }
+  .hint b{ color: var(--amber); }
+
+  .bp-block{ margin-bottom: .9rem; }
+  .bp-block:last-child{ margin-bottom: 0; }
+  .bp-name{ color: var(--amber); }
+  .bp-field{ padding-left: 1.2rem; display:block; }
+
+  /* example scope table */
+  .scope-table{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 700px;
+  }
+  .scope-col{
+    border: 1px solid rgba(234,242,255,.18);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    text-align: left;
+  }
+  .scope-col h3{
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .8rem;
+    color: var(--amber);
+    margin: 0 0 .6rem;
+  }
+  .scope-col ul{ margin: 0; padding-left: 1.1rem; color: var(--line-dim); font-size: clamp(.9rem,1.2vw,1.05rem); line-height: 1.6; }
+
+  /* prompt compare */
+  .compare{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    width: 100%;
+  }
+  .compare .box{
+    border-radius: 6px;
+    padding: 1.2rem 1.3rem;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: clamp(.88rem, 1.15vw, 1.02rem);
+    line-height: 1.55;
+  }
+  .compare .weak{ border: 1px solid rgba(234,242,255,.2); background: rgba(234,242,255,.03); color: var(--line-dim); }
+  .compare .strong{ border: 1px solid var(--amber); background: rgba(242,169,60,.08); color: var(--line); }
+  .compare .tag{ display:block; text-transform: uppercase; letter-spacing:.12em; font-size:.7rem; margin-bottom:.5rem; }
+  .compare .weak .tag{ color: #d97878; }
+  .compare .strong .tag{ color: var(--amber); }
+
+  /* recap table */
+  .recap-table{
+    width: 100%;
+    max-width: 640px;
+    text-align: left;
+    border-collapse: collapse;
+    font-size: clamp(.88rem, 1.15vw, 1.05rem);
+  }
+  .recap-table tr{ border-bottom: 1px solid rgba(234,242,255,.12); }
+  .recap-table td{ padding: .55rem .4rem; vertical-align: top; }
+  .recap-table td:first-child{
+    font-family: var(--font-mono);
+    color: var(--amber);
+    font-weight: 700;
+    white-space: nowrap;
+    width: 9ch;
+  }
+  .recap-table td:last-child{ color: var(--line-dim); }
+
+  .checklist{ text-align:left; max-width: 60ch; color: var(--line-dim); font-size: clamp(.95rem,1.3vw,1.15rem); line-height: 1.8; }
+  .checklist b{ color: var(--line); }
+
+  .success-levels{ display:flex; flex-direction:column; gap:.7rem; width:100%; max-width: 640px; text-align:left; }
+  .success-levels .lvl{ display:flex; gap:1rem; align-items:baseline; padding: .5rem .2rem; border-bottom: 1px solid rgba(234,242,255,.12); }
+  .success-levels .lvl b{ font-family: var(--font-mono); color: var(--amber); min-width: 6.5ch; }
+  .success-levels .lvl span{ color: var(--line-dim); font-size: clamp(.9rem,1.2vw,1.05rem); }
+
+  footer.bar{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: var(--footer-h);
+    background: var(--bg-2);
+    border-top: 1px solid rgba(234,242,255,.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: clamp(.6rem, .9vw, .72rem);
+    color: var(--line-dim);
+    z-index: 6;
+  }
+  footer.bar .f-left{ display:flex; gap: 1.2rem; align-items:center; }
+  footer.bar .f-center{
+    position: absolute; left: 50%; transform: translateX(-50%);
+    color: var(--amber);
+  }
+  footer.bar .f-right{ display:flex; gap: 1rem; align-items:center; }
+
+  .navbtn{
+    font-family: var(--font-mono);
+    background: transparent;
+    border: 1px solid var(--line-dim);
+    color: var(--line);
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex; align-items:center; justify-content:center;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .navbtn:hover{ border-color: var(--amber); color: var(--amber); }
+  .navbtn:focus-visible{ outline: 2px solid var(--amber); outline-offset: 2px; }
+
+  @media (max-width: 720px){
+    .cols3, .scope-table, .compare, .station-list{ grid-template-columns: 1fr; }
+    .reg{ display: none; }
+  }
+</style>
+
+<div class="deck" id="deck">
+  <div class="progress" id="progress"></div>
+  <div class="reg tl">+</div>
+  <div class="reg tr">+</div>
+  <div class="reg bl">+</div>
+  <div class="reg br">+</div>
+
+  <!-- 1 -->
+  <section class="slide" data-clock="6:00 PM" data-section="Welcome">
+    <div class="slide-inner">
+      <div class="eyebrow">KrackedDevs × Sunway University</div>
+      <h1 class="big jumbo">VIBE CODING 101</h1>
+      <div class="sub">Website Build Lab — Rakyat AI Path, Module 5</div>
+      <div class="meta-row">
+        <span>6:00 PM – 9:00 PM</span>
+        <span>Presented by Pali · KrackedDevs</span>
+        <span>academy.krackeddevs.com/vibe-101</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" data-clock="6:00–6:10" data-section="Welcome">
+    <div class="slide-inner">
+      <div class="eyebrow">Tonight's promise</div>
+      <h1 class="big">In 3 hours, you ship a real website.</h1>
+      <div class="lede">No prior coding experience needed. You bring the idea — the AI writes the code. You stay in charge of whether it's actually good.</div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" data-clock="6:00–6:10" data-section="Welcome">
+    <div class="slide-inner">
+      <div class="eyebrow">Who's running tonight</div>
+      <h2>KrackedDevs</h2>
+      <div class="lede">The hub for builders &amp; devs — 1,800+ members, weekly classes, monthly bounties.</div>
+      <div class="sub">Tonight, hosted by Pali · KrackedDevs</div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" data-clock="6:00–6:10" data-section="Welcome">
+    <div class="slide-inner">
+      <div class="eyebrow">What you leave with</div>
+      <h2>Three things, by 9pm</h2>
+      <div class="cols3">
+        <div class="card">
+          <div class="num">01</div>
+          <div class="card-title">A published website</div>
+          <div class="card-body">Live on the internet. Your own idea, your own link.</div>
+        </div>
+        <div class="card">
+          <div class="num">02</div>
+          <div class="card-title">A repeatable method</div>
+          <div class="card-body">KD Flow Lite — use it again on your next idea, not just tonight's.</div>
+        </div>
+        <div class="card">
+          <div class="num">03</div>
+          <div class="card-title">A community</div>
+          <div class="card-body">People building in public, every week, not just tonight.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" data-clock="6:10–6:25" data-section="Why vibe coding">
+    <div class="slide-inner">
+      <div class="eyebrow">First, the concept</div>
+      <h1 class="big">What is vibe coding?</h1>
+      <div class="lede">You describe what you want, in plain language. The AI writes the code. You read it, test it, and decide if it's right.</div>
+      <div class="sub">It's not "no effort" — it's a different kind of effort.</div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" data-clock="6:10–6:25" data-section="Why vibe coding">
+    <div class="slide-inner">
+      <div class="quote">AI helps with speed.<br><span class="accent">You still judge the work.</span></div>
+      <div class="attrib">— KD FLOW LITE, RULE #1</div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" data-clock="6:25–6:40" data-section="KD Flow Lite">
+    <div class="slide-inner">
+      <div class="eyebrow">The method</div>
+      <h2>Meet KD Flow Lite</h2>
+      <div class="loop">
+        <span class="node">Idea</span><span class="arrow">→</span>
+        <span class="node">Brief</span><span class="arrow">→</span>
+        <span class="node">Blueprint</span><span class="arrow">→</span>
+        <span class="node">Build</span><span class="arrow">→</span>
+        <span class="node">Review</span><span class="arrow">→</span>
+        <span class="node">Fix</span><span class="arrow">→</span>
+        <span class="node">Share</span>
+      </div>
+      <div class="sub">One loop. Every project, every time.</div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide align-left" data-clock="6:25–6:40" data-section="KD Flow Lite">
+    <div class="slide-inner">
+      <div class="eyebrow">How tonight is structured</div>
+      <h2>Tonight, in 8 stations</h2>
+      <ul class="station-list">
+        <li><span class="idx">01</span> Idea Lock</li>
+        <li><span class="idx">02</span> Scope Guillotine</li>
+        <li><span class="idx">03</span> Brief Lock</li>
+        <li><span class="idx">04</span> Blueprint Lock</li>
+        <li><span class="idx">05</span> Lane Lock</li>
+        <li><span class="idx">06</span> First Build</li>
+        <li><span class="idx">07</span> Review Mirror</li>
+        <li><span class="idx">08</span> Share Proof</li>
+      </ul>
+      <div class="sub">Each station ends with a lock — a real output, not just a discussion.</div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide" data-clock="6:25–6:40" data-section="KD Flow Lite">
+    <div class="slide-inner">
+      <div class="eyebrow">Tonight's lane</div>
+      <h2>We're building in V0</h2>
+      <div class="lede">Runs entirely in your browser — nothing to install. You describe your site in plain language and V0 builds it live. Built for a room full of laptops on different setups.</div>
+      <div class="sub">There's a deeper "Developer Upgrade" lane — Git, a real code editor, your own deploy — we'll peek at it near the end.</div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
+    <div class="slide-inner">
+      <div class="eyebrow">Before you touch anything — just watch</div>
+      <h2>Watch first. I'll build "Streaks" live in V0.</h2>
+      <div class="editor">
+        <div class="editor-tab"><span class="dot"></span>live demo script — what I'll type, in order</div>
+        <pre><span class="k">1.</span> Describe the whole app: 3 sections, bright playful style
+<span class="k">2.</span> Add a checkmark animation when a habit is ticked
+<span class="k">3.</span> Make new habits show up in Today right away
+<span class="k">4.</span> Add a flame icon for any habit on a 3+ day streak
+<span class="k">5.</span> Publish it</pre>
+      </div>
+      <div class="sub">You'll build this exact 5-step rhythm yourself later, at Station 05.</div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
+    <div class="slide-inner">
+      <div class="eyebrow">Debrief</div>
+      <h2>What just happened</h2>
+      <table class="recap-table">
+        <tr><td>Idea</td><td>A tiny app to help me stick to a new habit.</td></tr>
+        <tr><td>Brief</td><td>Who it's for, what "done for today" looks like.</td></tr>
+        <tr><td>Blueprint</td><td>3 sections — Today, Add Habit, Streaks.</td></tr>
+        <tr><td>Build</td><td>Prompt by prompt, in V0, out loud.</td></tr>
+        <tr><td>Review + Fix</td><td>Caught a checkbox that didn't save, fixed it.</td></tr>
+        <tr><td>Share</td><td>Published — a real, live link.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide" data-clock="7:00–7:15" data-section="Your turn">
+    <div class="slide-inner">
+      <div class="eyebrow">Now it's you</div>
+      <h1 class="big">Your turn.</h1>
+      <div class="lede">Follow along and build "Streaks" with me — or bring your own idea. Same 8 stations either way.</div>
+    </div>
+  </section>
+
+  <!-- 12b -->
+  <section class="slide align-left" data-clock="7:00–7:15" data-section="Ask AI to think">
+    <div class="slide-inner tight">
+      <div class="eyebrow">One more trick before you start</div>
+      <h2>Stuck on wording? Ask an AI chat first.</h2>
+
+      <div class="eyebrow">Step 0 — paste this first, once</div>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>ask Gemini · ChatGPT · Claude</div>
+        <pre>For this whole chat: I'm a complete beginner building a simple
+website in V0, in one 3-hour class. Keep every suggestion simple
+enough to build with ONE V0 prompt and test with a single click —
+no animations, sound, timers, live charts, or anything that needs
+the app to stay open. Use plain, concrete words, not marketing
+language like "platform" or "dashboard".</pre>
+      </div>
+
+      <div class="eyebrow">Step 1 — then paste your idea</div>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>ask Gemini · ChatGPT · Claude</div>
+        <pre>Here's my rough idea: <span class="k">[your words]</span>.
+Help me turn it into ONE clear sentence, no alternatives:
+"<span class="k">[what it is]</span> for <span class="k">[who it's for]</span>."</pre>
+      </div>
+
+      <div class="hint">Read each reply before asking for the next step — that's the "you still judge the work" part. Fine to keep going in the same chat the whole time.</div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide align-left" data-clock="7:00–7:15" data-section="Station 01">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">01</div>
+        <div class="stamp-label">Idea Lock</div>
+      </div>
+      <h2>Write your idea in one line</h2>
+      <div class="lede"><b>[What it is]</b> for <b>[who it's for]</b>.</div>
+      <div class="editor">
+        <div class="editor-tab"><span class="dot"></span>example</div>
+        <pre>A tiny app for me <span class="k">to check off my habits and see my streak</span>.</pre>
+      </div>
+      <div class="hint"><b>Stuck?</b> Ask AI: "Here's my rough idea: [your words]. Help me turn it into one sentence."</div>
+      <div class="timer-chip">⏱ 5 min</div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide align-left" data-clock="7:00–7:15" data-section="Station 02">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">02</div>
+        <div class="stamp-label">Scope Guillotine</div>
+      </div>
+      <h2>3 sections. 3 features. That's it.</h2>
+      <div class="lede">Cut everything else — tonight's win is a working site, not a perfect one.</div>
+      <div class="scope-table">
+        <div class="scope-col">
+          <h3>Sections</h3>
+          <ul><li>Today</li><li>Add Habit</li><li>Streaks</li></ul>
+        </div>
+        <div class="scope-col">
+          <h3>Features</h3>
+          <ul><li>Check off a habit</li><li>Add a new habit</li><li>See streak count</li></ul>
+        </div>
+      </div>
+      <div class="hint"><b>Rule of thumb:</b> if a feature needs to work while the app is closed (reminders, notifications, alerts) — cut it. V0 builds what's on screen; it can't run in the background.</div>
+      <div class="hint"><b>Stuck?</b> Ask AI: "My idea is [your one-liner]. Suggest exactly 3 sections and 3 features — nothing more. Nothing that needs to work while the app is closed, like notifications — everything happens live, on screen, right now."</div>
+      <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="slide align-left" data-clock="7:15–7:30" data-section="Station 03">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">03</div>
+        <div class="stamp-label">Brief Lock</div>
+      </div>
+      <h2>How to write a project brief</h2>
+      <div class="editor">
+        <div class="editor-tab"><span class="dot"></span>project-brief.md</div>
+        <pre><span class="k">Name:</span> <span class="c">what do you call it?</span>
+<span class="k">Audience:</span> <span class="c">who is this for?</span>
+<span class="k">Goal:</span> <span class="c">the ONE thing it should do</span>
+<span class="k">Tone:</span> <span class="c">how should it feel — playful? calm? bold?</span></pre>
+      </div>
+      <div class="hint"><b>Stuck?</b> Ask AI: "Using my idea and the 3 sections + 3 features I just gave you, write me a short project brief — Name, Audience, Goal, Tone — one line each, consistent with that scope."</div>
+      <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 15b -->
+  <section class="slide align-left" data-clock="7:15–7:30" data-section="Station 03">
+    <div class="slide-inner">
+      <div class="eyebrow">Station 03 · Worked example</div>
+      <h2>Example: Streaks</h2>
+      <div class="editor">
+        <div class="editor-tab"><span class="dot"></span>project-brief.md</div>
+        <pre><span class="k">Name:</span> Streaks
+<span class="k">Audience:</span> Me — and anyone building a new habit
+<span class="k">Goal:</span> Check off habits, watch the streak grow
+<span class="k">Tone:</span> Playful, colourful, motivating</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="slide align-left" data-clock="7:15–7:30" data-section="Station 04">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">04</div>
+        <div class="stamp-label">Blueprint Lock</div>
+      </div>
+      <h2>How to write a build blueprint</h2>
+      <div class="lede">For each of your 3 sections, answer 3 things. Do the same for each feature.</div>
+      <div class="editor">
+        <div class="editor-tab"><span class="dot"></span>build-blueprint.md</div>
+        <pre>Section [1] — <span class="c">[name]</span>
+  <span class="k">Purpose:</span> <span class="c">why does it exist?</span>
+  <span class="k">Content:</span> <span class="c">what's on it?</span>
+  <span class="k">Action:</span> <span class="c">what can they click or do?</span>
+
+Feature [1] — <span class="c">[name]</span>
+  <span class="k">Trigger:</span> <span class="c">what starts it?</span>
+  <span class="k">Feedback:</span> <span class="c">what do they see happen?</span></pre>
+      </div>
+      <div class="hint"><b>Stuck?</b> Ask AI: "Using the EXACT 3 sections and 3 features from earlier — not new ones — plus my brief, turn it into a blueprint: for each section give Purpose, Content, Action; for each feature give Trigger and Feedback. Nothing that needs to fire while the app is closed, like reminders or notifications."</div>
+      <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 16b -->
+  <section class="slide align-left" data-clock="7:15–7:30" data-section="Station 04">
+    <div class="slide-inner">
+      <div class="eyebrow">Station 04 · Worked example</div>
+      <h2>Example: Streaks</h2>
+      <div class="editor">
+        <div class="editor-tab"><span class="dot"></span>build-blueprint.md</div>
+        <pre>Section 1 — Today
+  <span class="k">Purpose:</span> see today's habits at a glance
+  <span class="k">Content:</span> a list of habits, each with a checkbox
+  <span class="k">Action:</span> tap the checkbox to mark it done
+
+Section 2 — Add Habit
+  <span class="k">Purpose:</span> create a new habit to track
+  <span class="k">Content:</span> a name field and an emoji picker
+  <span class="k">Action:</span> tap "Add" to save it
+
+Section 3 — Streaks
+  <span class="k">Purpose:</span> see progress build up over time
+  <span class="k">Content:</span> each habit's current streak count
+  <span class="k">Action:</span> tap a habit to see its history
+
+<span class="k">Style:</span> bright, one bold accent colour, big satisfying checkmarks</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 -->
+  <section class="slide" data-clock="7:30–7:40" data-section="Break">
+    <div class="slide-inner">
+      <div class="eyebrow">Stretch, refill, reset</div>
+      <h1 class="big jumbo">BREAK</h1>
+      <div class="sub">Ask a helper anything. We're back in 10.</div>
+      <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 18 -->
+  <section class="slide align-left" data-clock="7:40–7:50" data-section="Station 05">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">05</div>
+        <div class="stamp-label">Lane Lock</div>
+      </div>
+      <h2>Get into V0</h2>
+      <ul class="checklist">
+        <li>1. Go to your V0 workspace, sign in with Google</li>
+        <li>2. Start a new project</li>
+        <li>3. Paste your <b>Blueprint</b> in as your first prompt — not your Brief</li>
+      </ul>
+      <div class="sub">Your Brief was for you, to stay focused. Your Blueprint is what V0 actually builds from — fold in the Brief's one-line Tone as a style note.</div>
+      <div class="sub"><b>Tonight's 5-Prompt Pack:</b> Describe → Add a section → Fix something broken → Change the look → Add one feature</div>
+      <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 19 -->
+  <section class="slide" data-clock="7:50–8:30" data-section="Station 06">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">06</div>
+        <div class="stamp-label">First Build</div>
+      </div>
+      <h1 class="big">Build it.</h1>
+      <div class="lede">Prompt by prompt, follow your Blueprint. Small steps beat one giant prompt.</div>
+      <div class="sub">Stuck? Raise your hand — a helper comes to you.</div>
+      <div class="timer-chip">⏱ 40 min</div>
+    </div>
+  </section>
+
+  <!-- 20 -->
+  <section class="slide align-left" data-clock="7:50–8:30" data-section="Station 06">
+    <div class="slide-inner">
+      <div class="eyebrow">While you build</div>
+      <h2>Prompt like this, not like that</h2>
+      <div class="compare">
+        <div class="box weak">
+          <span class="tag">Weak</span>
+          "make it look better"
+        </div>
+        <div class="box strong">
+          <span class="tag">Strong</span>
+          "make the checkmark animate and turn green when I tap it"
+        </div>
+        <div class="box weak">
+          <span class="tag">Weak</span>
+          "add a form"
+        </div>
+        <div class="box strong">
+          <span class="tag">Strong</span>
+          "add a form to create a new habit with a name and an emoji picker"
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20b -->
+  <section class="slide align-left" data-clock="7:50–8:30" data-section="Station 06">
+    <div class="slide-inner">
+      <div class="eyebrow">Still stuck?</div>
+      <h2>Ask AI to write the prompt for you</h2>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>ask Gemini · ChatGPT · Claude</div>
+        <pre>I'm using V0 (a website builder) and I want it to <span class="k">[describe what you want, in your own words]</span>.
+Help me turn this into one clear instruction I can paste into V0.</pre>
+      </div>
+      <div class="sub">Then copy what it gives you, straight into V0.</div>
+    </div>
+  </section>
+
+  <!-- 21 -->
+  <section class="slide align-left" data-clock="8:30–8:45" data-section="Station 07">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">07</div>
+        <div class="stamp-label">Review Mirror</div>
+      </div>
+      <h2>Pair up. Review. Fix one thing.</h2>
+      <ul class="checklist">
+        <li>Open your partner's site.</li>
+        <li>Find <b>one</b> thing that's confusing.</li>
+        <li>Find <b>one</b> thing that's broken.</li>
+        <li>Find <b>one</b> thing you'd change.</li>
+        <li>Go back and fix just <b>one</b> of them.</li>
+      </ul>
+      <div class="timer-chip">⏱ 15 min</div>
+    </div>
+  </section>
+
+  <!-- 22 -->
+  <section class="slide align-left" data-clock="8:45–8:55" data-section="Station 08">
+    <div class="slide-inner">
+      <div class="stamp-row">
+        <div class="stamp">08</div>
+        <div class="stamp-label">Share Proof</div>
+      </div>
+      <h2>Publish. Share the link.</h2>
+      <div class="lede">Publish in V0 → copy the link → post it in the group chat.</div>
+      <div class="success-levels">
+        <div class="lvl"><b>Minimum</b><span>Planned, a screenshot, and you can explain it.</span></div>
+        <div class="lvl"><b>Good</b><span>Minimum, plus one real review and fix applied.</span></div>
+        <div class="lvl"><b>Strong</b><span>A published, live URL.</span></div>
+      </div>
+      <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 23 -->
+  <section class="slide" data-clock="8:55–9:00" data-section="Recap">
+    <div class="slide-inner">
+      <div class="eyebrow">Look back</div>
+      <h2>You just ran the whole loop</h2>
+      <div class="loop">
+        <span class="node done">Idea</span><span class="arrow">→</span>
+        <span class="node done">Brief</span><span class="arrow">→</span>
+        <span class="node done">Blueprint</span><span class="arrow">→</span>
+        <span class="node done">Build</span><span class="arrow">→</span>
+        <span class="node done">Review</span><span class="arrow">→</span>
+        <span class="node done">Fix</span><span class="arrow">→</span>
+        <span class="node done">Share</span>
+      </div>
+      <div class="sub">Use it again on the next idea. It doesn't get old.</div>
+    </div>
+  </section>
+
+  <!-- 24 -->
+  <section class="slide" data-clock="8:55–9:00" data-section="What's next">
+    <div class="slide-inner">
+      <div class="eyebrow">Ready for more?</div>
+      <h2>The Developer Upgrade lane</h2>
+      <div class="lede">Git &amp; GitHub, a real code editor, your own Node project, deployed on Vercel. Same loop — more control.</div>
+      <div class="sub">academy.krackeddevs.com/academy/vibe-101</div>
+    </div>
+  </section>
+
+  <!-- 25 -->
+  <section class="slide" data-clock="8:55–9:00" data-section="Join us">
+    <div class="slide-inner">
+      <div class="eyebrow">Keep building with us</div>
+      <h2>Join KrackedDevs</h2>
+      <div class="lede">1,800+ builders. Weekly classes. Monthly bounties.</div>
+      <div class="meta-row">
+        <span>krackeddevs.com</span>
+        <span>Join link on screen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 26 -->
+  <section class="slide" data-clock="9:00 PM" data-section="Thank you">
+    <div class="slide-inner">
+      <h1 class="big jumbo">THANK YOU.</h1>
+      <div class="sub">Questions? Now's the time.</div>
+    </div>
+  </section>
+
+  <footer class="bar">
+    <div class="f-left">
+      <span>Vibe Coding 101 · KD Flow Lite</span>
+    </div>
+    <div class="f-center" id="sectionLabel">Welcome</div>
+    <div class="f-right">
+      <span id="clockLabel">6:00 PM</span>
+      <button class="navbtn" id="prevBtn" aria-label="Previous slide">‹</button>
+      <span id="counter">01 / 26</span>
+      <button class="navbtn" id="nextBtn" aria-label="Next slide">›</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var total = slides.length;
+    var idx = 0;
+
+    var progress = document.getElementById('progress');
+    var counter = document.getElementById('counter');
+    var clockLabel = document.getElementById('clockLabel');
+    var sectionLabel = document.getElementById('sectionLabel');
+
+    function pad(n){ return n < 10 ? '0' + n : '' + n; }
+
+    function render(){
+      slides.forEach(function(s, i){
+        s.classList.toggle('active', i === idx);
+      });
+      var current = slides[idx];
+      progress.style.width = ((idx + 1) / total * 100) + '%';
+      counter.textContent = pad(idx + 1) + ' / ' + pad(total);
+      clockLabel.textContent = current.getAttribute('data-clock') || '';
+      sectionLabel.textContent = current.getAttribute('data-section') || '';
+    }
+
+    function go(delta){
+      idx = Math.max(0, Math.min(total - 1, idx + delta));
+      render();
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', function(){ go(-1); });
+    document.getElementById('nextBtn').addEventListener('click', function(){ go(1); });
+
+    var deck = document.getElementById('deck');
+    deck.addEventListener('click', function(e){
+      if (e.target.closest('.copy-btn, .navbtn, footer.bar')) return;
+      var w = window.innerWidth;
+      if (e.clientX < w * 0.2) go(-1);
+      else if (e.clientX > w * 0.8) go(1);
+    });
+
+    window.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ go(1); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ go(-1); e.preventDefault(); }
+      else if (e.key === 'Home'){ idx = 0; render(); }
+      else if (e.key === 'End'){ idx = total - 1; render(); }
+    });
+
+    function copyText(text){
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        return navigator.clipboard.writeText(text).catch(function(){ return legacyCopy(text); });
+      }
+      return legacyCopy(text);
+    }
+
+    function legacyCopy(text){
+      return new Promise(function(resolve){
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch (err) {}
+        document.body.removeChild(ta);
+        resolve();
+      });
+    }
+
+    function initCopyButtons(){
+      document.querySelectorAll('.editor').forEach(function(ed){
+        var tab = ed.querySelector('.editor-tab');
+        var pre = ed.querySelector('pre');
+        if (!tab || !pre || tab.querySelector('.copy-btn')) return;
+
+        var label = document.createElement('span');
+        label.className = 'tab-label';
+        while (tab.firstChild) { label.appendChild(tab.firstChild); }
+        tab.appendChild(label);
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.setAttribute('aria-label', 'Copy this text');
+        btn.addEventListener('click', function(){
+          var text = pre.textContent.trim();
+          copyText(text).then(function(){
+            btn.textContent = 'Copied';
+            btn.classList.add('copied');
+            setTimeout(function(){
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          });
+        });
+        tab.appendChild(btn);
+      });
+    }
+
+    initCopyButtons();
+    render();
+  })();
+</script>
