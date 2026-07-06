@@ -302,6 +302,37 @@
     letter-spacing: .03em;
   }
 
+  /* ad break slides */
+  .ad-cta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .8rem;
+    margin-top: .4rem;
+  }
+  .qr-card{
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    width: clamp(150px, 26vh, 230px);
+    box-shadow: 0 0 0 3px var(--amber);
+  }
+  .qr-card svg{ display: block; width: 100%; height: auto; }
+  .ad-url{
+    font-family: var(--font-mono);
+    color: var(--amber);
+    font-weight: 700;
+    letter-spacing: .06em;
+    font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+  }
+  .ad-scan{
+    font-family: var(--font-mono);
+    color: var(--line-dim);
+    font-size: clamp(.75rem, 1vw, .9rem);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
   /* fake editor block */
   .editor{
     width: 100%;
@@ -825,6 +856,22 @@ Section 3 — Streaks
     </div>
   </section>
 
+  <!-- 16c — ad break 1 -->
+  <section class="slide" data-clock="7:30–7:40" data-section="Ad break">
+    <div class="slide-inner">
+      <div class="eyebrow">A quick word from our sponsors</div>
+      <h2>Land your next job in a single chat.</h2>
+      <div class="lede">Kuntum — an AI recruiter on WhatsApp &amp; Telegram, from the KrackedDevs team. No leceh forms, no spam.</div>
+      <div class="ad-cta">
+        <div class="qr-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR code for kuntum.app"><path stroke="#091f3d" d="M4 4.5h7m7 0h1m1 0h1m1 0h7M4 5.5h1m5 0h1m2 0h1m5 0h1m2 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h5m2 0h1m2 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h2m1 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h1m2 0h3m2 0h1m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h2m1 0h1m1 0h4m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h3m1 0h2m1 0h1M4 12.5h1m1 0h5m4 0h2m1 0h2m2 0h5M5 13.5h3m1 0h1m1 0h1m2 0h3m3 0h2m1 0h1m3 0h1M4 14.5h1m1 0h1m1 0h1m1 0h1m5 0h1m2 0h1m1 0h5m1 0h2M4 15.5h2m1 0h1m6 0h2m2 0h1m1 0h3m1 0h1m3 0h1M5 16.5h1m4 0h1m3 0h2m5 0h2m1 0h1m1 0h3M4 17.5h2m6 0h2m2 0h3m4 0h1m1 0h1m1 0h1M4 18.5h1m2 0h1m1 0h2m1 0h1m1 0h1m2 0h5m1 0h3m1 0h2M4 19.5h1m1 0h2m6 0h1m1 0h2m1 0h2m2 0h2m3 0h1M4 20.5h1m1 0h1m1 0h3m3 0h1m1 0h1m1 0h1m1 0h5m1 0h1M12 21.5h2m5 0h2m3 0h2M4 22.5h7m3 0h3m3 0h1m1 0h1m1 0h1m1 0h3M4 23.5h1m5 0h1m1 0h1m1 0h2m2 0h1m1 0h1m3 0h2M4 24.5h1m1 0h3m1 0h1m1 0h4m3 0h6m1 0h1m1 0h1M4 25.5h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h3m2 0h2m1 0h5M4 26.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m2 0h1m3 0h2m1 0h1M4 27.5h1m5 0h1m5 0h2m2 0h6m2 0h1M4 28.5h7m1 0h2m2 0h1m1 0h1m3 0h7"/></svg>
+        </div>
+        <div class="ad-url">kuntum.app</div>
+        <div class="ad-scan">Scan to have a look</div>
+      </div>
+    </div>
+  </section>
+
   <!-- 17 -->
   <section class="slide" data-clock="7:30–7:40" data-section="Break">
     <div class="slide-inner">
@@ -832,6 +879,22 @@ Section 3 — Streaks
       <h1 class="big jumbo">BREAK</h1>
       <div class="sub">Ask a helper anything. We're back in 10.</div>
       <div class="timer-chip">⏱ 10 min</div>
+    </div>
+  </section>
+
+  <!-- 17b — ad break 2 -->
+  <section class="slide" data-clock="7:30–7:40" data-section="Ad break">
+    <div class="slide-inner">
+      <div class="eyebrow">And we're back — one more from our sponsors</div>
+      <h2>One scan. Everything that matters.</h2>
+      <div class="lede">JomQR — an all-in-one networking card. One QR gives people your links, socials and contact, neatly organised.</div>
+      <div class="ad-cta">
+        <div class="qr-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR code for jomqr.my"><path stroke="#091f3d" d="M4 4.5h7m1 0h3m1 0h4m2 0h7M4 5.5h1m5 0h1m1 0h1m2 0h5m2 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h1m4 0h2m3 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m2 0h1m4 0h3m1 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m5 0h3m3 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M16 11.5h1m1 0h1M4 12.5h1m2 0h7m1 0h1m1 0h2m2 0h1m2 0h1m1 0h3M5 13.5h5m3 0h1m1 0h1m2 0h2m3 0h5M5 14.5h3m2 0h1m2 0h3m2 0h3m4 0h1m2 0h1M4 15.5h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m5 0h5M4 16.5h3m1 0h1m1 0h1m1 0h4m1 0h2m1 0h1m1 0h2m4 0h1M4 17.5h1m1 0h3m2 0h2m3 0h1m2 0h2m3 0h1m2 0h1M4 18.5h2m1 0h1m1 0h2m1 0h2m4 0h4m2 0h5M4 19.5h1m2 0h2m3 0h1m1 0h1m1 0h4m1 0h3m1 0h2m1 0h1M4 20.5h1m1 0h2m1 0h3m1 0h1m1 0h2m3 0h5m1 0h2M12 21.5h1m2 0h1m4 0h1m3 0h1m1 0h2M4 22.5h7m1 0h3m1 0h3m1 0h1m1 0h1m1 0h1m3 0h1M4 23.5h1m5 0h1m1 0h1m2 0h1m1 0h1m2 0h1m3 0h1m3 0h1M4 24.5h1m1 0h3m1 0h1m1 0h4m1 0h1m1 0h6m3 0h1M4 25.5h1m1 0h3m1 0h1m1 0h3m1 0h2m3 0h2m4 0h2M4 26.5h1m1 0h3m1 0h1m2 0h3m1 0h1m1 0h1m4 0h5M4 27.5h1m5 0h1m3 0h4m1 0h1m1 0h4m1 0h3M4 28.5h7m1 0h2m1 0h3m2 0h1m1 0h1m2 0h1m2 0h1"/></svg>
+        </div>
+        <div class="ad-url">jomqr.my</div>
+        <div class="ad-scan">Scan to have a look</div>
+      </div>
     </div>
   </section>
 
@@ -1002,7 +1065,7 @@ Help me turn this into one clear instruction I can paste into V0.</pre>
     <div class="f-right">
       <span id="clockLabel">6:00 PM</span>
       <button class="navbtn" id="prevBtn" aria-label="Previous slide">‹</button>
-      <span id="counter">01 / 26</span>
+      <span id="counter">01 / 32</span>
       <button class="navbtn" id="nextBtn" aria-label="Next slide">›</button>
     </div>
   </footer>
