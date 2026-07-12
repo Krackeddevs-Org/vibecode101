@@ -604,6 +604,44 @@
     </div>
   </section>
 
+  <!-- 5b — the misconception -->
+  <section class="slide align-left" data-clock="6:10–6:25" data-section="Why vibe coding">
+    <div class="slide-inner">
+      <div class="eyebrow">The catch nobody tells you</div>
+      <h2>It's not magic. And it's not automatic.</h2>
+      <div class="compare">
+        <div class="box weak">
+          <span class="tag">The myth</span>
+          Type one prompt → a finished system appears → you're done. The AI is smart, so whatever it hands back must be good.
+        </div>
+        <div class="box strong">
+          <span class="tag">The reality</span>
+          The AI is fast, not right. Left unchecked it produces "AI slop" — confident, polished, and quietly wrong. Reading it, testing it, and steering it IS the skill.
+        </div>
+      </div>
+      <div class="sub">Prompt without judgment = slop. Prompt with judgment = a real product. Tonight, we practise the judgment.</div>
+    </div>
+  </section>
+
+  <!-- 5c — mindset: builder, not prompter -->
+  <section class="slide align-left" data-clock="6:10–6:25" data-section="Why vibe coding">
+    <div class="slide-inner">
+      <div class="eyebrow">The mindset that changes everything</div>
+      <h2>You're not a prompter. You're the architect.</h2>
+      <div class="compare">
+        <div class="box weak">
+          <span class="tag">A prompter</span>
+          Types "make me an app", takes whatever appears, and hopes it works.
+        </div>
+        <div class="box strong">
+          <span class="tag">A builder / architect</span>
+          Decides what to build, scopes it, directs the AI, checks every output, and owns the result.
+        </div>
+      </div>
+      <div class="sub">The AI is your builder — you hold the plan. Tonight you practise being the architect, not the person typing wishes.</div>
+    </div>
+  </section>
+
   <!-- 6 -->
   <section class="slide" data-clock="6:10–6:25" data-section="Why vibe coding">
     <div class="slide-inner">
@@ -653,43 +691,99 @@
   <section class="slide" data-clock="6:25–6:40" data-section="KD Flow Lite">
     <div class="slide-inner">
       <div class="eyebrow">Tonight's lane</div>
-      <h2>We're building in V0</h2>
-      <div class="lede">Runs entirely in your browser — nothing to install. You describe your site in plain language and V0 builds it live. Built for a room full of laptops on different setups.</div>
-      <div class="sub">There's a deeper "Developer Upgrade" lane — Git, a real code editor, your own deploy — we'll peek at it near the end.</div>
+      <h2>We're building in Google AI Studio</h2>
+      <div class="lede">Runs entirely in your browser — sign in with a Google account, nothing to install. You describe your site in plain language and AI Studio builds it live. Built for a room full of laptops on different setups.</div>
+      <div class="sub">There's a deeper lane too — <b>Antigravity</b>, a real AI coding tool on your own machine. I'll give you a live peek near the end.</div>
+      <div class="hint"><b>Do it now, while it's calm:</b> open <b>aistudio.google.com</b> and sign in with Google. Getting sign-in out of the way early means no scramble when we start building.</div>
     </div>
   </section>
 
-  <!-- 10 -->
+  <!-- 10 — demo thinking 1/2: Idea + Scope (my script) -->
+  <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
+    <div class="slide-inner tight">
+      <div class="eyebrow">My script — think it through in an AI chat first</div>
+      <h2>Stations 1-2: Idea → Scope</h2>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>1 · Idea — ask Gemini / ChatGPT / Claude</div>
+        <pre>Here's my rough idea: find &amp; message a local home-service pro. Help me turn it into one clear sentence.</pre>
+      </div>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>2 · Scope</div>
+        <pre>My idea is [paste the one-liner]. Suggest exactly 3 sections and 3 features — nothing more. Nothing that needs to work while the app is closed, like notifications — everything happens live, on screen, right now.</pre>
+      </div>
+      <div class="hint">Read each reply before the next — that's the "you still judge the work" part. Keep it all in one chat.</div>
+    </div>
+  </section>
+
+  <!-- 10a2 — demo thinking 2/2: Brief + Blueprint → build (my script) -->
+  <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
+    <div class="slide-inner tight">
+      <div class="eyebrow">My script — brief, blueprint, then into AI Studio</div>
+      <h2>Stations 3-4: Brief → Blueprint</h2>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>3 · Brief</div>
+        <pre>Using my idea and the 3 sections + 3 features I just gave you, write me a short project brief — Name, Audience, Goal, Tone — one line each, consistent with that scope.</pre>
+      </div>
+      <div class="editor ai-editor">
+        <div class="editor-tab"><span class="dot"></span>4 · Blueprint</div>
+        <pre>Using the EXACT 3 sections and 3 features from earlier — not new ones — plus my brief, turn it into a blueprint: for each section give Purpose, Content, Action; for each feature give Trigger and Feedback. Nothing that needs to fire while the app is closed, like reminders or notifications.</pre>
+      </div>
+      <div class="hint"><b>Then:</b> paste the finished blueprint straight into AI Studio as the first prompt — that's the build.</div>
+    </div>
+  </section>
+
+  <!-- 10b — demo: the build (stations 5-8) -->
   <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
     <div class="slide-inner">
-      <div class="eyebrow">Before you touch anything — just watch</div>
-      <h2>Watch first. I'll build "Streaks" live in V0.</h2>
+      <div class="eyebrow">The build — Stations 5-8</div>
+      <h2>Build from the Blueprint, one change at a time.</h2>
       <div class="editor">
-        <div class="editor-tab"><span class="dot"></span>live demo — the actual prompts, in order</div>
-        <pre><span class="k">1.</span> "Build me a small web app called Streaks — a habit tracker. 3 sections: Today (my habits as a checklist), Add Habit (a name field and an emoji picker), and Streaks (each habit's current streak count). Bright playful style, big satisfying checkmarks."
-<span class="k">2.</span> <span class="c">test it — tick a habit, click around</span>
-<span class="k">3.</span> "Make the checkmark animate and turn green when I tap it."
-<span class="k">4.</span> <span class="c">add a habit → check Today → something's off? fix it:</span> "When I add a new habit, it should appear in Today immediately."
-<span class="k">5.</span> "Add a flame icon next to any habit with a 3+ day streak."
-<span class="k">6.</span> <span class="c">Publish → open the live link</span></pre>
+        <div class="editor-tab"><span class="dot"></span>the build — one change per step, test after each</div>
+        <pre><span class="k">Build</span>  paste the Blueprint → AI Studio builds JomFix
+<span class="k">Test</span>   tap a category, open a card, hit WhatsApp → it does nothing
+<span class="k">Fix</span>    "The Call/WhatsApp button should open WhatsApp with the provider's number."
+<span class="k">Add</span>    "Add an 'Available Today' toggle that shows only free providers."
+<span class="k">Live</span>   add today's real petrol price <span class="c">— a live API from Pasar API</span>
+<span class="k">Share</span>  Publish (free) → open the live link</pre>
       </div>
-      <div class="sub">One change per prompt. Test after every one. You'll run this exact rhythm yourself at Station 06.</div>
+      <div class="sub">One change per prompt. Test after every one. You'll run this exact loop yourself at Station 06.</div>
     </div>
   </section>
 
   <!-- 11 -->
   <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
     <div class="slide-inner">
-      <div class="eyebrow">Debrief</div>
-      <h2>What just happened</h2>
-      <table class="recap-table">
-        <tr><td>Idea</td><td>A tiny app to help me stick to a new habit.</td></tr>
-        <tr><td>Brief</td><td>Who it's for, what "done for today" looks like.</td></tr>
-        <tr><td>Blueprint</td><td>3 sections — Today, Add Habit, Streaks.</td></tr>
-        <tr><td>Build</td><td>Prompt by prompt, in V0, out loud.</td></tr>
-        <tr><td>Review + Fix</td><td>Caught a checkbox that didn't save, fixed it.</td></tr>
-        <tr><td>Share</td><td>Published — a real, live link.</td></tr>
-      </table>
+      <div class="eyebrow">Debrief — did you catch it?</div>
+      <h2>One of these is real. One is slop.</h2>
+      <div class="compare">
+        <div class="box strong">
+          <span class="tag">Real</span>
+          The petrol price — pulled live from the official government fuel-price API. A real number, right now.
+        </div>
+        <div class="box weak">
+          <span class="tag">AI slop</span>
+          The weather panel — "synced with MET Malaysia," neat per-service advisories… all hardcoded. Invented. It calls nothing.
+        </div>
+      </div>
+      <div class="sub">Same app, same AI. The only difference is whether I checked the work. That's the whole job.</div>
+    </div>
+  </section>
+
+  <!-- 11b — Pasar API: where real data comes from -->
+  <section class="slide align-left" data-clock="6:40–7:00" data-section="Live demo">
+    <div class="slide-inner">
+      <div class="eyebrow">How the live data got in</div>
+      <h2>Real data? Grab it from Pasar API.</h2>
+      <div class="lede">The kicker: a <b>real, live MET Malaysia weather API</b> was on Pasar API the whole time — the AI just faked the weather instead of using it. <b>Pasar API</b> is KrackedDevs' directory of Malaysian APIs. Open one and it hands you a ready-made <b>"Copy AI prompt"</b> — paste it straight into AI Studio and it wires the live data for you.</div>
+      <div class="loop">
+        <span class="node">Search Pasar API</span><span class="arrow">→</span>
+        <span class="node">Open an API</span><span class="arrow">→</span>
+        <span class="node">Copy AI prompt</span><span class="arrow">→</span>
+        <span class="node">Paste into AI Studio</span><span class="arrow">→</span>
+        <span class="node">Live data</span>
+      </div>
+      <div class="hint"><b>Shortcut, if your AI can browse:</b> skip the copy — paste the API's permalink and say <i>"Fetch pasarapi.xyz/a/weather-forecast, find the API endpoint on that page, and connect it to my app."</i></div>
+      <div class="sub">pasarapi.xyz · 1,400+ Malaysian &amp; global APIs · no auth, copy-paste ready</div>
     </div>
   </section>
 
@@ -698,7 +792,7 @@
     <div class="slide-inner">
       <div class="eyebrow">Now it's you</div>
       <h1 class="big">Your turn.</h1>
-      <div class="lede">Follow along and build "Streaks" with me — or bring your own idea. Same 8 stations either way.</div>
+      <div class="lede">Follow along and build "JomFix" with me — or bring your own idea. Same 8 stations either way.</div>
     </div>
   </section>
 
@@ -712,11 +806,11 @@
       <div class="editor ai-editor">
         <div class="editor-tab"><span class="dot"></span>ask Gemini · ChatGPT · Claude</div>
         <pre>For this whole chat: I'm a complete beginner building a simple
-website in V0, in one 3-hour class. Keep every suggestion simple
-enough to build with ONE V0 prompt and test with a single click —
-no animations, sound, timers, live charts, or anything that needs
-the app to stay open. Use plain, concrete words, not marketing
-language like "platform" or "dashboard".</pre>
+website in Google AI Studio, in one 3-hour class. Keep every
+suggestion simple enough to build with ONE AI Studio prompt and test
+with a single click — no animations, sound, timers, live charts, or
+anything that needs the app to stay open. Use plain, concrete words,
+not marketing language like "platform" or "dashboard".</pre>
       </div>
 
       <div class="eyebrow">Step 1 — then paste your idea</div>
@@ -742,7 +836,7 @@ Help me turn it into ONE clear sentence, no alternatives:
       <div class="lede"><b>[What it is]</b> for <b>[who it's for]</b>.</div>
       <div class="editor">
         <div class="editor-tab"><span class="dot"></span>example</div>
-        <pre>A tiny app for me <span class="k">to check off my habits and see my streak</span>.</pre>
+        <pre>A tiny app for <span class="k">anyone in Malaysia to find and message a local home-service pro</span>.</pre>
       </div>
       <div class="hint"><b>Stuck?</b> Ask AI: "Here's my rough idea: [your words]. Help me turn it into one sentence."</div>
       <div class="timer-chip">⏱ 5 min</div>
@@ -761,14 +855,14 @@ Help me turn it into ONE clear sentence, no alternatives:
       <div class="scope-table">
         <div class="scope-col">
           <h3>Sections</h3>
-          <ul><li>Today</li><li>Add Habit</li><li>Streaks</li></ul>
+          <ul><li>Service Hub</li><li>Provider Board</li><li>Connect</li></ul>
         </div>
         <div class="scope-col">
           <h3>Features</h3>
-          <ul><li>Check off a habit</li><li>Add a new habit</li><li>See streak count</li></ul>
+          <ul><li>"Available Today" toggle</li><li>Tap to WhatsApp</li><li>Quick star rating</li></ul>
         </div>
       </div>
-      <div class="hint"><b>Rule of thumb:</b> if a feature needs to work while the app is closed (reminders, notifications, alerts) — cut it. V0 builds what's on screen; it can't run in the background.</div>
+      <div class="hint"><b>Rule of thumb:</b> if a feature needs to work while the app is closed (reminders, notifications, alerts) — cut it. AI Studio builds what's on screen; it can't run in the background.</div>
       <div class="hint"><b>Stuck?</b> Ask AI: "My idea is [your one-liner]. Suggest exactly 3 sections and 3 features — nothing more. Nothing that needs to work while the app is closed, like notifications — everything happens live, on screen, right now."</div>
       <div class="timer-chip">⏱ 10 min</div>
     </div>
@@ -798,13 +892,13 @@ Help me turn it into ONE clear sentence, no alternatives:
   <section class="slide align-left" data-clock="7:15–7:30" data-section="Station 03">
     <div class="slide-inner">
       <div class="eyebrow">Station 03 · Worked example</div>
-      <h2>Example: Streaks</h2>
+      <h2>Example: JomFix</h2>
       <div class="editor">
         <div class="editor-tab"><span class="dot"></span>project-brief.md</div>
-        <pre><span class="k">Name:</span> Streaks
-<span class="k">Audience:</span> Me — and anyone building a new habit
-<span class="k">Goal:</span> Check off habits, watch the streak grow
-<span class="k">Tone:</span> Playful, colourful, motivating</pre>
+        <pre><span class="k">Name:</span> JomFix
+<span class="k">Audience:</span> Malaysians who need a home fix — plumbing, air-cond, electrical
+<span class="k">Goal:</span> Find a nearby pro and message them in seconds
+<span class="k">Tone:</span> Clean, friendly, trustworthy</pre>
       </div>
     </div>
   </section>
@@ -838,25 +932,26 @@ Feature [1] — <span class="c">[name]</span>
   <section class="slide align-left" data-clock="7:15–7:30" data-section="Station 04">
     <div class="slide-inner">
       <div class="eyebrow">Station 04 · Worked example</div>
-      <h2>Example: Streaks</h2>
+      <h2>Example: JomFix</h2>
       <div class="editor">
         <div class="editor-tab"><span class="dot"></span>build-blueprint.md</div>
-        <pre>Section 1 — Today
-  <span class="k">Purpose:</span> see today's habits at a glance
-  <span class="k">Content:</span> a list of habits, each with a checkbox
-  <span class="k">Action:</span> tap the checkbox to mark it done
+        <pre>Section 1 — Service Hub
+  <span class="k">Purpose:</span> start here, find the help you need fast
+  <span class="k">Content:</span> a search bar + category icons (Plumbing, Air-Cond, Electrician, Runners)
+  <span class="k">Action:</span> tap a category to filter the providers
 
-Section 2 — Add Habit
-  <span class="k">Purpose:</span> create a new habit to track
-  <span class="k">Content:</span> a name field and an emoji picker
-  <span class="k">Action:</span> tap "Add" to save it
+Section 2 — Provider Board
+  <span class="k">Purpose:</span> see local pros for that category
+  <span class="k">Content:</span> cards with name, service, rate, star rating
+  <span class="k">Action:</span> tap a card to open its details
 
-Section 3 — Streaks
-  <span class="k">Purpose:</span> see progress build up over time
-  <span class="k">Content:</span> each habit's current streak count
-  <span class="k">Action:</span> tap a habit to see its history
+Section 3 — Connect
+  <span class="k">Purpose:</span> reach the provider now
+  <span class="k">Content:</span> a slide-up panel: profile, hours, Call/WhatsApp button
+  <span class="k">Action:</span> tap Call/WhatsApp to message them
 
-<span class="k">Style:</span> bright, one bold accent colour, big satisfying checkmarks</pre>
+<span class="k">Live data:</span> today's real petrol price, from an API found on Pasar API
+<span class="k">Style:</span> clean, friendly, trustworthy, one accent colour, a Malaysian touch</pre>
       </div>
     </div>
   </section>
@@ -910,13 +1005,13 @@ Section 3 — Streaks
         <div class="stamp">05</div>
         <div class="stamp-label">Lane Lock</div>
       </div>
-      <h2>Get into V0</h2>
+      <h2>Get into Google AI Studio</h2>
       <ul class="checklist">
-        <li>1. Go to your V0 workspace, sign in with Google</li>
-        <li>2. Start a new project</li>
+        <li>1. Go to <b>aistudio.google.com</b> → <b>Build</b> (sign in with Google if you haven't)</li>
+        <li>2. Start a new app / project</li>
         <li>3. Paste your <b>Blueprint</b> in as your first prompt — not your Brief</li>
       </ul>
-      <div class="sub">Your Brief was for you, to stay focused. Your Blueprint is what V0 actually builds from — fold in the Brief's one-line Tone as a style note.</div>
+      <div class="sub">Your Brief was for you, to stay focused. Your Blueprint is what AI Studio actually builds from — fold in the Brief's one-line Tone as a style note.</div>
       <div class="sub"><b>Tonight's 5-Prompt Pack:</b> Describe → Add a section → Fix something broken → Change the look → Add one feature</div>
       <div class="timer-chip">⏱ 10 min</div>
     </div>
@@ -948,7 +1043,7 @@ Section 3 — Streaks
         </div>
         <div class="box strong">
           <span class="tag">Strong</span>
-          "make the checkmark animate and turn green when I tap it"
+          "make each provider card show the star rating in gold, right-aligned"
         </div>
         <div class="box weak">
           <span class="tag">Weak</span>
@@ -956,9 +1051,44 @@ Section 3 — Streaks
         </div>
         <div class="box strong">
           <span class="tag">Strong</span>
-          "add a form to create a new habit with a name and an emoji picker"
+          "add a green WhatsApp CTA button that opens a chat with the provider, pre-filled: 'Hi, I found you on JomFix'"
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 20c — vocabulary: say the right word -->
+  <section class="slide" data-clock="7:50–8:30" data-section="Station 06">
+    <div class="slide-inner">
+      <div class="eyebrow">Say the right word</div>
+      <h2>Know the terms. Get what you mean.</h2>
+      <div class="cols3">
+        <div class="card">
+          <div class="card-title">CTA</div>
+          <div class="card-body">"Call to action" — the one button you most want tapped. "Chat on WhatsApp", "Book now".</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Dropdown</div>
+          <div class="card-body">A menu that opens when you tap it, to pick one option.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Carousel</div>
+          <div class="card-body">A row of cards you swipe or scroll sideways.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Chevron</div>
+          <div class="card-body">The small &rsaquo; arrow that hints "there's more this way".</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Modal</div>
+          <div class="card-body">A pop-up dialog that opens over the page.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Hero</div>
+          <div class="card-body">The big headline section at the top of a page.</div>
+        </div>
+      </div>
+      <div class="sub">The right word = the AI builds the right thing. Vague words get vague apps.</div>
     </div>
   </section>
 
@@ -969,10 +1099,10 @@ Section 3 — Streaks
       <h2>Ask AI to write the prompt for you</h2>
       <div class="editor ai-editor">
         <div class="editor-tab"><span class="dot"></span>ask Gemini · ChatGPT · Claude</div>
-        <pre>I'm using V0 (a website builder) and I want it to <span class="k">[describe what you want, in your own words]</span>.
-Help me turn this into one clear instruction I can paste into V0.</pre>
+        <pre>I'm using Google AI Studio (a website builder) and I want it to <span class="k">[describe what you want, in your own words]</span>.
+Help me turn this into one clear instruction I can paste into AI Studio.</pre>
       </div>
-      <div class="sub">Then copy what it gives you, straight into V0.</div>
+      <div class="sub">Then copy what it gives you, straight into AI Studio.</div>
     </div>
   </section>
 
@@ -1003,11 +1133,11 @@ Help me turn this into one clear instruction I can paste into V0.</pre>
         <div class="stamp-label">Share Proof</div>
       </div>
       <h2>Publish. Share the link.</h2>
-      <div class="lede">Publish in V0 → copy the link → post it in the group chat.</div>
+      <div class="lede">In AI Studio, hit <b>Publish</b> (it's free) → copy your live link → post it in the group chat.</div>
       <div class="success-levels">
         <div class="lvl"><b>Minimum</b><span>Planned, a screenshot, and you can explain it.</span></div>
         <div class="lvl"><b>Good</b><span>Minimum, plus one real review and fix applied.</span></div>
-        <div class="lvl"><b>Strong</b><span>A published, live URL.</span></div>
+        <div class="lvl"><b>Strong</b><span>A published, live URL anyone can open.</span></div>
       </div>
       <div class="timer-chip">⏱ 10 min</div>
     </div>
@@ -1035,9 +1165,128 @@ Help me turn this into one clear instruction I can paste into V0.</pre>
   <section class="slide" data-clock="8:55–9:00" data-section="What's next">
     <div class="slide-inner">
       <div class="eyebrow">Ready for more?</div>
-      <h2>The Developer Upgrade lane</h2>
-      <div class="lede">Git &amp; GitHub, a real code editor, your own Node project, deployed on Vercel. Same loop — more control.</div>
-      <div class="sub">academy.krackeddevs.com/academy/vibe-101</div>
+      <h2>The next lane: Antigravity</h2>
+      <div class="lede">A real AI coding tool on your own machine — it builds actual projects you own, edits real files, and runs its own tasks. Same KD Flow Lite loop, more power.</div>
+      <div class="sub">Watch — I'll take tonight's JomFix idea into Antigravity, live. Full guide: academy.krackeddevs.com/academy/vibe-101</div>
+    </div>
+  </section>
+
+  <!-- 24b — the real-dev stack -->
+  <section class="slide" data-clock="8:55–9:00" data-section="What's next">
+    <div class="slide-inner">
+      <div class="eyebrow">The real-dev stack</div>
+      <h2>Git · Vercel · Supabase</h2>
+      <div class="cols3">
+        <div class="card">
+          <div class="card-title">Git &amp; GitHub</div>
+          <div class="card-body">Version control. Save every change, undo anything, work as a team. GitHub is where the code lives online.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Vercel</div>
+          <div class="card-body">Deploy &amp; hosting. Push your code and it goes live with a URL — like AI Studio's Publish, but for real projects.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Supabase</div>
+          <div class="card-body">Your database &amp; backend. Store users, logins, and data that needs to stick around.</div>
+        </div>
+      </div>
+      <div class="sub">AI Studio hides all this. Antigravity + these three is how real apps get built and shipped.</div>
+    </div>
+  </section>
+
+  <!-- 24c — Git detail -->
+  <section class="slide" data-clock="8:55–9:00" data-section="Level up">
+    <div class="slide-inner">
+      <div class="eyebrow">Level up · dev stack 1 of 3</div>
+      <h2>Git &amp; GitHub</h2>
+      <div class="lede">Version control — a save history for your whole project. Undo anything, try ideas safely, never lose work.</div>
+      <div class="cols3">
+        <div class="card">
+          <div class="card-title">Commit</div>
+          <div class="card-body">A save point with a note. Roll back to any of them, anytime.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Branch</div>
+          <div class="card-body">A parallel copy to try something — without breaking what already works.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">GitHub</div>
+          <div class="card-body">Your code's home online: backup, teamwork, and a portfolio employers actually check.</div>
+        </div>
+      </div>
+      <div class="sub">Free · github.com</div>
+    </div>
+  </section>
+
+  <!-- 24d — Vercel detail -->
+  <section class="slide" data-clock="8:55–9:00" data-section="Level up">
+    <div class="slide-inner">
+      <div class="eyebrow">Level up · dev stack 2 of 3</div>
+      <h2>Vercel</h2>
+      <div class="lede">Turns your code into a live website. Connect your GitHub once — every push updates the live site automatically.</div>
+      <div class="cols3">
+        <div class="card">
+          <div class="card-title">Auto-deploy</div>
+          <div class="card-body">Push to GitHub → live in seconds. No servers to set up or manage.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Preview links</div>
+          <div class="card-body">Every change gets its own test URL before it goes live.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Custom domains</div>
+          <div class="card-body">Point yourname.com at it when you're ready. Generous free tier.</div>
+        </div>
+      </div>
+      <div class="sub">Free to start · vercel.com</div>
+    </div>
+  </section>
+
+  <!-- 24e — Supabase detail -->
+  <section class="slide" data-clock="8:55–9:00" data-section="Level up">
+    <div class="slide-inner">
+      <div class="eyebrow">Level up · dev stack 3 of 3</div>
+      <h2>Supabase</h2>
+      <div class="lede">The backend beginners actually understand — a real database, logins, and file storage, without building a server.</div>
+      <div class="cols3">
+        <div class="card">
+          <div class="card-title">Database</div>
+          <div class="card-body">A real Postgres database with a friendly, spreadsheet-like table editor.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Auth</div>
+          <div class="card-body">Email and Google logins wired up in minutes, not days.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Storage + APIs</div>
+          <div class="card-body">File uploads and instant APIs to your data, out of the box.</div>
+        </div>
+      </div>
+      <div class="sub">Free tier · supabase.com</div>
+    </div>
+  </section>
+
+  <!-- 24f — the tech stack -->
+  <section class="slide" data-clock="8:55–9:00" data-section="Level up">
+    <div class="slide-inner">
+      <div class="eyebrow">Level up · what to build with</div>
+      <h2>The popular, beginner-friendly stack</h2>
+      <div class="lede">What most AI builders output — and what most modern sites run on. Learn it and everything else clicks.</div>
+      <div class="cols3">
+        <div class="card">
+          <div class="card-title">Next.js + React</div>
+          <div class="card-body">Build web apps out of reusable "components" — the most popular way to make modern sites.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Tailwind CSS</div>
+          <div class="card-body">Style fast with ready-made classes — no separate CSS files to wrangle.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">TypeScript</div>
+          <div class="card-body">JavaScript with guardrails that catch mistakes before they ship.</div>
+        </div>
+      </div>
+      <div class="sub">React + Tailwind + TypeScript, shipped on Vercel, powered by Supabase — the whole modern stack.</div>
     </div>
   </section>
 
