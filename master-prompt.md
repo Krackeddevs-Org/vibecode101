@@ -12,9 +12,11 @@ existing app, not a new page) works, and the AI still fakes gaps — so the plan
 
 ## Sourcing choice (why it's in the prompt)
 The coach now asks: **do you want the AI to pick a specific design + API, or will you browse and
-pick yourself?** Either way the live data must come **from Pasar API** — the coach may never skip
-Pasar to go straight to a raw data source. If the AI picks, it must flag any link/endpoint it isn't
-certain is real and tell you to confirm it opens/loads first (no hallucinated slugs).
+pick yourself?** The live data comes **from Pasar API first** — the coach shouldn't skip Pasar for a
+raw source when Pasar has what you need. **Fallback:** if Pasar genuinely has no API for your need,
+the coach says so and suggests a real free, no-key public API from elsewhere. Either way, the AI must
+flag any link/endpoint it isn't certain is real and tell you to confirm it opens/loads first (no
+hallucinated slugs).
 
 ---
 
@@ -42,13 +44,17 @@ DO THIS IN ORDER, ONE STEP AT A TIME:
 
 3) SOURCING — Ask me one thing and wait: for the DESIGN and the LIVE DATA, do I want YOU to pick
    specific ones for me, or would I rather browse and pick them myself?
-   - Either way, the live data must come FROM Pasar API (pasarapi.xyz) — never skip Pasar to go
-     straight to a raw data source.
+   - For the live data, try Pasar API (pasarapi.xyz) FIRST — it's the default source; don't skip it
+     to a raw source when Pasar has what I need.
    - If I say YOU pick: choose a specific design from designmd.ai (give me the exact link) and a
      specific API from pasarapi.xyz (give me its GET endpoint). Only recommend ones you can actually
      find — if you are not certain a link or endpoint is real, say so plainly and tell me to open it
      and confirm it works before I rely on it. Never invent a link or endpoint.
-   - If I say I'll pick: just give me a design vibe and a Pasar search term, and I'll browse.
+   - FALLBACK — if Pasar API genuinely has no API for what I need, say so, then suggest a real public
+     one from elsewhere: free, no key, and fetchable from the browser. Same honesty rule — if you're
+     not certain it's real, tell me to open it and confirm it loads first. Never invent an endpoint.
+   - If I say I'll pick: give me a design vibe and a Pasar search term to browse; if Pasar has nothing
+     for my need, tell me it's fine to find a free, no-key public API on the web instead.
 
 4) THE PLAN — Once sourcing is settled, stop asking questions and write my plan in TWO parts, using
    the EXACT 3 sections and 3 features I locked in (not new ones). Do NOT invent a design or make up
@@ -99,10 +105,11 @@ PART 2 · THEN MAKE IT REAL (do these yourself, in order)
    open a matching design, copy its LINK, and put it at the top of Part 1.
 
 2. REAL DATA — add <the type of live data that fits> to <the section it fits in>, as an addition to
-   that section, NOT a new 4th section or feature. It comes from Pasar API (pasarapi.xyz). If you
-   picked it, give me the API's GET endpoint. If I'm picking: search "<a search term>" on Pasar,
-   open an API, and copy its ENDPOINT (the "GET https://…" line) — do NOT paste Pasar's whole
-   "Copy AI prompt" (it's written to build a brand-new page and hijacks your app). Either way, then
+   that section, NOT a new 4th section or feature. Get it from Pasar API (pasarapi.xyz) first; if
+   Pasar doesn't have one, use the free no-key public API the coach found instead. If you picked it,
+   give me the GET endpoint. If I'm picking: search "<a search term>" on Pasar (or the web if Pasar
+   has nothing), open an API, and copy its ENDPOINT (the "GET https://…" line) — do NOT paste Pasar's
+   whole "Copy AI prompt" (it's written to build a brand-new page and hijacks your app). Either way, then
    tell AI Studio to ADD it to what you already built:
    "Add <the data> to <my section> using this live API: GET <endpoint> (JSON, no key). Show only the
     fields the API really returns; use my chosen <location>, don't guess it; show a clear message if
@@ -119,11 +126,14 @@ paste it as your first message. Then work down Part 2 — one change at a time, 
 
 ## Notes for the class
 
-- **Sourcing is a user choice.** AI-picks (convenient) or self-serve (browse). Either way the data
-  comes from Pasar API — the coach can't bypass it to a raw source.
+- **Sourcing is a user choice.** AI-picks (convenient) or self-serve (browse). Pasar API is the
+  default source; **if Pasar genuinely doesn't have the API the user needs, the coach falls back to a
+  real free, no-key public API from elsewhere** (found live-testing 2026-07-15 — Pasar didn't cover
+  every ask). Pasar stays first, not exclusive.
 - **AI-picked links get a reality check.** The prompt forbids invented slugs/endpoints and tells the
-  user to confirm the link opens / the API loads. Fallbacks still apply: design generic → copy the
-  text; API can't load → the "show a clear message" safeguard.
+  user to confirm the link opens / the API loads — this honesty guard covers the global fallback too.
+  Fallbacks still apply: design generic → copy the text; API can't load → the "show a clear message"
+  safeguard.
 - **Design = link, front-loaded** (validated: AI Studio fetched `designmd.ai/chef/minidash` /
   `.../rawblock` and applied the real tokens). Restyling later is the expensive rebuild — avoid it.
 - **Real data = the endpoint, ADDED to the app.** Pasar's "Copy AI prompt" builds a *new* page —
