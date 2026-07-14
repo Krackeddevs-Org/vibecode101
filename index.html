@@ -1045,20 +1045,11 @@ PART 2 · THEN MAKE IT REAL
 
   <!-- real data: endpoint + ADD instruction -->
   <section class="slide align-left" data-clock="8:15–8:30" data-section="Part 2 · Make it real">
-    <div class="slide-inner tight">
-      <div class="eyebrow">Your Part 2 already wrote this</div>
-      <h2>Part 2 already has the ADD instruction.</h2>
-      <div class="lede">The master prompt already handed you the complete instruction — endpoint and ADD rules baked in, like this. You sorted the data source back in the prompt, so there's nothing to go find now. Just <b>paste it back into AI Studio — the same app you built in Part 1</b> — and it ADDs the data instead of rebuilding. What you paste is <b>this</b>, <b>not</b> Pasar's "Copy AI prompt" (that builds a <b>new</b> page and hijacks your app).</div>
-      <div class="editor">
-        <div class="editor-tab"><span class="dot"></span>paste this back into AI Studio — ADD it, don't rebuild</div>
-        <pre>Add Malaysia's latest weekly fuel prices inside the existing Usage Summary using this live API:
-GET https://api.data.gov.my/data-catalogue?id=fuelprice&amp;filter=level@series_type&amp;sort=-date&amp;limit=1
-Show the returned date and the prices for RON95, RON97, BUDI95, Peninsular diesel, and East
-Malaysia diesel. Label it 'Latest weekly fuel prices'. Show only fields the API returns; don't
-invent missing values. If it can't load, show 'Fuel prices are currently unavailable'. Don't let
-an API error break the tracker. Don't create a new page or section — add it only inside Usage Summary.</pre>
-      </div>
-      <div class="hint"><b>Then check the work:</b> the AI still fakes gaps — a null price dressed up as "No price cap", a made-up trend. Tell it to remove anything the data doesn't actually have. <span class="c">pasarapi.xyz · CORS-open, no auth</span></div>
+    <div class="slide-inner">
+      <div class="eyebrow">Make it real — the second paste</div>
+      <h2>Paste Part 2. It wires the real data.</h2>
+      <div class="lede">Part 2 of your plan is the make-it-real step — it already has the exact instruction to add your live data. Paste it into AI Studio (the app you built in Part 1) and it wires the API into what you already made — no rebuild, no new page.</div>
+      <div class="sub"><b>Then check:</b> the AI still fakes gaps — a null shown as "No price cap", a made-up value. Tell it to remove anything the data doesn't actually have.</div>
     </div>
   </section>
 
