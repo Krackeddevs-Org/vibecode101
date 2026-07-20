@@ -749,6 +749,8 @@ RULES (follow all of these the whole way through):
 - Everything happens live, on the screen, right now. Nothing that needs to work while the app is
   closed — no notifications, reminders, emails, sign-ups, payments, or saving data between visits.
 - It's a single web page. Keep every idea buildable as one simple app.
+- THE TECH STACK IS FIXED: always Vite + React (JavaScript) with plain CSS. Never Next.js, never a
+  backend or a database. Same stack every time, so building and publishing work the same for everyone.
 - Be warm and encouraging, but calm and plain — no emoji, no hype, don't gush. Never dump a wall of text on me.
 
 DO THIS IN ORDER, ONE STEP AT A TIME:
@@ -789,6 +791,10 @@ builder couldn't read the link — open the design, copy its TEXT, and paste tha
 
 APP NAME: &lt;name&gt;
 FOR: &lt;who it's for&gt;  ·  GOAL: &lt;what it helps them do&gt;
+
+BUILD WITH (use exactly this — do not substitute):
+Vite + React (JavaScript), plain CSS. One page, runs entirely in the browser.
+No Next.js, no backend, no database.
 
 SECTIONS (build these 3):
 1. &lt;name&gt; — Purpose: &lt;why&gt; | Shows: &lt;what's on it&gt; | Main action: &lt;what the user can do here&gt;
@@ -833,12 +839,48 @@ PART 2 · THEN MAKE IT REAL (do these yourself, in order)
     it can't load; never show made-up values; don't let this break the rest of the app; and don't
     create a new page — add it to my existing app."
 
-3. PUBLISH — in AI Studio, hit Publish (free), copy the live link, and share it.
+3. PUBLISH — in AI Studio, hit Publish (free), copy the live link, and share it. Because it's a
+   plain Vite app, it also builds anywhere else: "npm run build" makes a "dist" folder you can drag
+   onto Vercel or Netlify.
 
 Finally, tell me in one line: "Copy Part 1, open aistudio.google.com, sign in with Google, and
 paste it as your first message. Then work down Part 2 — one change at a time, test after each."</pre>
       </div>
       <div class="hint">Answer its questions, then copy the block it hands you. It even suggests a design and where to find real data. Next, we open AI Studio and build from it — together.</div>
+    </div>
+  </section>
+
+  <!-- prompt anatomy: what it does -->
+  <section class="slide" data-clock="6:45–7:05" data-section="The method">
+    <div class="slide-inner">
+      <div class="eyebrow">What that prompt is actually doing</div>
+      <h2>It interviews you, then hands you two blocks.</h2>
+      <div class="loop">
+        <span class="node">Idea</span><span class="arrow">→</span>
+        <span class="node">Scope</span><span class="arrow">→</span>
+        <span class="node">Sourcing</span><span class="arrow">→</span>
+        <span class="node">The plan</span>
+      </div>
+      <div class="sub">One question at a time: what you're building — then it locks you to exactly 3 sections and 3 features — then it settles your design and your live data. Only then does it write the plan.</div>
+    </div>
+  </section>
+
+  <!-- prompt anatomy: part 1 vs part 2 -->
+  <section class="slide align-left" data-clock="6:45–7:05" data-section="The method">
+    <div class="slide-inner">
+      <div class="eyebrow">The two blocks it hands back</div>
+      <h2>Part 1 builds it. Part 2 makes it real.</h2>
+      <div class="compare">
+        <div class="box strong">
+          <span class="tag">Part 1 · one paste</span>
+          Your whole app in one block — design link on the first line, the tech stack, your 3 sections, your 3 features, and a checklist to test it against. Paste it once and watch it build.
+        </div>
+        <div class="box strong">
+          <span class="tag">Part 2 · one paste + your judgement</span>
+          The part the AI can't do for you — wire in the real live data, catch the bits it faked, then publish. Same paste-and-go, but you check the work.
+        </div>
+      </div>
+      <div class="sub">You don't need to read the whole prompt. Answer its questions, then work down the two blocks it gives you — in order, one at a time.</div>
     </div>
   </section>
 
@@ -977,7 +1019,7 @@ PART 2 · THEN MAKE IT REAL
         </div>
         <div class="box strong">
           <span class="tag">Strong</span>
-          "make each card show its rating as gold stars, right-aligned"
+          "make the hero heading bigger, and centre it on mobile"
         </div>
         <div class="box weak">
           <span class="tag">Weak</span>
@@ -985,10 +1027,18 @@ PART 2 · THEN MAKE IT REAL
         </div>
         <div class="box strong">
           <span class="tag">Strong</span>
-          "add a green 'Contact' button that opens WhatsApp with a pre-filled message"
+          "add a green CTA under the form that says 'Add entry'"
+        </div>
+        <div class="box weak">
+          <span class="tag">Weak</span>
+          "it's broken"
+        </div>
+        <div class="box strong">
+          <span class="tag">Strong</span>
+          "when I click Add entry, nothing appears in the list &mdash; fix that"
         </div>
       </div>
-      <div class="sub">The more specific the prompt, the closer the result. Vague words get vague apps.</div>
+      <div class="sub">Name the exact thing, say exactly what it should do. Vague words get vague apps.</div>
     </div>
   </section>
 
@@ -998,14 +1048,17 @@ PART 2 · THEN MAKE IT REAL
       <div class="eyebrow">Say the right word</div>
       <h2>Know the terms. Get what you mean.</h2>
       <div class="cols3">
-        <div class="card"><div class="card-title">CTA</div><div class="card-body">"Call to action" — the one button you most want tapped. "Chat on WhatsApp", "Book now".</div></div>
-        <div class="card"><div class="card-title">Dropdown</div><div class="card-body">A menu that opens when you tap it, to pick one option.</div></div>
-        <div class="card"><div class="card-title">Carousel</div><div class="card-body">A row of cards you swipe or scroll sideways.</div></div>
-        <div class="card"><div class="card-title">Chevron</div><div class="card-body">The small &rsaquo; arrow that hints "there's more this way".</div></div>
-        <div class="card"><div class="card-title">Modal</div><div class="card-body">A pop-up dialog that opens over the page.</div></div>
-        <div class="card"><div class="card-title">Hero</div><div class="card-body">The big headline section at the top of a page.</div></div>
+        <div class="card"><div class="card-title">CTA</div><div class="card-body">The one button you most want tapped. <em>"Make the CTA say Book now."</em></div></div>
+        <div class="card"><div class="card-title">Hero</div><div class="card-body">The big headline section at the top. <em>"Add a hero with the app name."</em></div></div>
+        <div class="card"><div class="card-title">Card</div><div class="card-body">One boxed unit, repeated in a list. <em>"Show each entry as a card."</em></div></div>
+        <div class="card"><div class="card-title">Dropdown</div><div class="card-body">Tap to pick one option from a menu.</div></div>
+        <div class="card"><div class="card-title">Carousel</div><div class="card-body">A row of cards you swipe sideways.</div></div>
+        <div class="card"><div class="card-title">Chevron</div><div class="card-body">The small &rsaquo; arrow meaning "more this way".</div></div>
+        <div class="card"><div class="card-title">Modal</div><div class="card-body">A pop-up dialog over the page. <em>"Open the details in a modal."</em></div></div>
+        <div class="card"><div class="card-title">Empty state</div><div class="card-body">What shows before there's any data. <em>"Say No entries yet."</em></div></div>
+        <div class="card"><div class="card-title">Loading state</div><div class="card-body">What shows while live data loads. <em>"Show a loading state."</em></div></div>
       </div>
-      <div class="sub">The right word = the AI builds the right thing. Vague words get vague apps.</div>
+      <div class="sub">The right word = the AI builds the right thing.</div>
     </div>
   </section>
 

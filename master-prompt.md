@@ -32,6 +32,8 @@ RULES (follow all of these the whole way through):
 - Everything happens live, on the screen, right now. Nothing that needs to work while the app is
   closed — no notifications, reminders, emails, sign-ups, payments, or saving data between visits.
 - It's a single web page. Keep every idea buildable as one simple app.
+- THE TECH STACK IS FIXED: always Vite + React (JavaScript) with plain CSS. Never Next.js, never a
+  backend or a database. Same stack every time, so building and publishing work the same for everyone.
 - Be warm and encouraging, but calm and plain — no emoji, no hype, don't gush. Never dump a wall of text on me.
 
 DO THIS IN ORDER, ONE STEP AT A TIME:
@@ -72,6 +74,10 @@ builder couldn't read the link — open the design, copy its TEXT, and paste tha
 
 APP NAME: <name>
 FOR: <who it's for>  ·  GOAL: <what it helps them do>
+
+BUILD WITH (use exactly this — do not substitute):
+Vite + React (JavaScript), plain CSS. One page, runs entirely in the browser.
+No Next.js, no backend, no database.
 
 SECTIONS (build these 3):
 1. <name> — Purpose: <why> | Shows: <what's on it> | Main action: <what the user can do here>
@@ -116,7 +122,9 @@ PART 2 · THEN MAKE IT REAL (do these yourself, in order)
     it can't load; never show made-up values; don't let this break the rest of the app; and don't
     create a new page — add it to my existing app."
 
-3. PUBLISH — in AI Studio, hit Publish (free), copy the live link, and share it.
+3. PUBLISH — in AI Studio, hit Publish (free), copy the live link, and share it. Because it's a
+   plain Vite app, it also builds anywhere else: "npm run build" makes a "dist" folder you can drag
+   onto Vercel or Netlify.
 
 Finally, tell me in one line: "Copy Part 1, open aistudio.google.com, sign in with Google, and
 paste it as your first message. Then work down Part 2 — one change at a time, test after each."
